@@ -34,24 +34,24 @@
             "id": "37485cad-c3c0-41b5-846c-8425e1b2b90d",
             "actions": [
                 {
-                    "name": "MouseMove",
-                    "type": "Value",
-                    "id": "c1adad88-9014-4e9f-a3a1-99a24a1c7b4a",
-                    "expectedControlType": "Vector2",
+                    "name": "Interaction",
+                    "type": "Button",
+                    "id": "68b198f7-22c5-47fa-9084-38a0f5fc38fc",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
                 {
                     "name": "",
-                    "id": "862fac42-889c-4d02-86e2-ed392a203418",
-                    "path": "<Mouse>/delta",
+                    "id": "8114f060-9a08-4269-bc95-39e08c5a68a6",
+                    "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "MouseMove",
+                    "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

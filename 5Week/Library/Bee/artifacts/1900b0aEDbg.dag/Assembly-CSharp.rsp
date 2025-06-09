@@ -363,6 +363,15 @@
 "Assets/01.SMComponent/SMImage.cs"
 "Assets/02.SMScript/Controller/UIController.cs"
 "Assets/02.SMScript/Helper/DebugHelper.cs"
+"Assets/02.SMScript/Helper/DebugWindow.cs"
+"Assets/02.SMScript/ItemSystem/Inventory.cs"
+"Assets/02.SMScript/ItemSystem/Item/ItemDictionary.cs"
+"Assets/02.SMScript/ItemSystem/Item/ItemInfo.cs"
+"Assets/02.SMScript/PlayerSystem/Player.cs"
+"Assets/02.SMScript/PlayerSystem/PlayerController.cs"
+"Assets/02.SMScript/UI/ItemSystem/InventorySlot.cs"
+"Assets/02.SMScript/UI/ItemSystem/InventoryViewer.cs"
+"Assets/02.SMScript/UI/UIManager.cs"
 -langversion:9.0
 
 /deterministic

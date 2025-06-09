@@ -24,9 +24,5 @@ public class UIController : MonoBehaviour
         LeftMouseButtonAction = playerInput.actions[LeftMouseButton];
     }
 
-    private void Start()
-    {
-
-    }
 
 }
