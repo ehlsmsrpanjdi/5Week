@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerClickHandler
+public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
 {
     ESMHandler handler;
 
     ESMHandler IHandlerUI.Handler => handler;
 
-    public void OnMouseButtonUp()
+    public void OnMouseButtonOff()
     {
         DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
@@ -20,24 +20,23 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerClickHandle
         DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        OnMouseButtonOff();
+
+        if (handler == ESMHandler.UnHandled)
+        {
+            SMHandlerEvent.TryDispatcherMouseOff(eventData.position);
+        }
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
     {
         OnMouseButtonOn();
 
         if (handler == ESMHandler.UnHandled)
         {
-            SMHandlerEvent.TryDispatcherMouseOnClicked(eventData.position);
+            SMHandlerEvent.TryDispatcherMouseOn(eventData.position);
         }
     }
-
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        OnMouseButtonUp();
-
-        if (handler == ESMHandler.UnHandled)
-        {
-            SMHandlerEvent.TryDispatcherMouseUnClicked(eventData.position);
-        }
-    }
-
 }

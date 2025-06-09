@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 
 public static class SMHandlerEvent
 {
-    public static void TryDispatcherMouseUnClicked(Vector2 _MousePos)
+    public static void TryDispatcherMouseOff(Vector2 _MousePos)
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {
@@ -22,7 +22,7 @@ public static class SMHandlerEvent
             IHandlerUI handlerUI = handler.gameObject.GetComponent<IHandlerUI>();
             if (handlerUI != null)
             {
-                handlerUI.OnMouseButtonUp();
+                handlerUI.OnMouseButtonOff();
                 if (handlerUI.Handler == ESMHandler.Handled)
                 {
                     return;
@@ -31,7 +31,7 @@ public static class SMHandlerEvent
         }
     }
 
-    public static void TryDispatcherMouseOnClicked(Vector2 _MousePos)
+    public static void TryDispatcherMouseOn(Vector2 _MousePos)
     {
         PointerEventData pointerData = new PointerEventData(EventSystem.current)
         {

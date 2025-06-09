@@ -6,12 +6,12 @@ using UnityEngine.InputSystem;
 public class UIController : MonoBehaviour
 {
     const string LeftMouseButton = "LeftMouseButton";
-    PlayerInput playerInput;
+    [SerializeField] PlayerInput playerInput;
 
     InputAction LeftMouseButtonAction;
     private void Reset()
     {
-        PlayerInput playerInput = GetComponent<PlayerInput>();
+        playerInput = GetComponent<PlayerInput>();
 
         if (playerInput == null)
         {
@@ -21,12 +21,12 @@ public class UIController : MonoBehaviour
 
     private void Awake()
     {
-        
+        LeftMouseButtonAction = playerInput.actions[LeftMouseButton];
     }
 
     private void Start()
     {
-        LeftMouseButtonAction = playerInput.actions[LeftMouseButton];
+
     }
 
 }
