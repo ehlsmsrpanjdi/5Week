@@ -23,6 +23,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    SMImage selectedImage;
+
+    public void SelectImage(SMImage _image)
+    {
+        selectedImage = _image;
+    }
+
+
     private void Awake()
     {
         if (instance == null)
