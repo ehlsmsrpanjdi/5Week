@@ -8,15 +8,17 @@ public static class DebugHelper
 {
     public static void Log(string message, Object context)
     {
-        Debug.Log(message);
+        Debug.Log($"{context.name}   and  {message}");
     }
     public static void LogWarning(string message, Object context)
     {
-        Debug.LogWarning(message);
+        Debug.Log($"{context.name}   and  {message}");
+
     }
     public static void LogError(string message, Object context)
     {
-        Debug.LogError(message);
+        Debug.Log($"{context.name}   and  {message}");
+
     }
     public static void LogException(System.Exception exception, Object context)
     {

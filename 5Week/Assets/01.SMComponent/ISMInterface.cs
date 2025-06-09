@@ -15,8 +15,8 @@ public interface IHandlerUI
 
     //void Initialize();
 
-    //void MouseEnter();
-    //void MouseExit();
+    void OnMouseEnter();
+    void OnMouseExit();
     void OnMouseButtonOff();
     void OnMouseButtonOn();
 

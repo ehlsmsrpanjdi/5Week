@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.PlasticSCM.Editor.WebApi;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
+public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     ESMHandler handler;
 
@@ -23,15 +24,31 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
         }
     }
 
+    private Color currentcolor;
+
+    public void OnMouseEnter()
+    {
+        currentcolor = color;
+        color = Color.yellow;
+        DebugHelper.Log("SMImage OnMouseEnter", this);
+    }
+    public void OnMouseExit()
+    {
+        color = currentcolor;
+        DebugHelper.Log("SMImage OnMouseExit", this);
+    }
+
     public void OnMouseButtonOff()
     {
         isSelected = false;
+        raycastTarget = true;
         DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
     public void OnMouseButtonOn()
     {
         isSelected = true;
+        raycastTarget = false;
         DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
     
@@ -54,4 +71,25 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
             SMHandlerEvent.TryDispatcherMouseOn(eventData.position);
         }
     }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        OnMouseEnter();
+
+        if (handler == ESMHandler.UnHandled)
+        {
+            SMHandlerEvent.TryDispatcherMouseEnter(eventData.position);
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        OnMouseExit();
+
+        if (handler == ESMHandler.UnHandled)
+        {
+            SMHandlerEvent.TryDispatcherMouseExit(eventData.position);
+        }
+    }
+
 }
