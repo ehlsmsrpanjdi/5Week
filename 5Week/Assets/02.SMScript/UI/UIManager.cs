@@ -49,9 +49,46 @@ public class UIManager : MonoBehaviour
     private void Reset()
     {
         inventoryViewer = FindObjectOfType<InventoryViewer>();
-        if (inventoryViewer == null)
+    }
+
+    public InventorySlot GetSlot()
+    {
+        if (inventoryViewer != null)
         {
-            Debug.LogError("InventoryViewer component not found in children of UIManager.");
+            return inventoryViewer.GetSlot();
+        }
+        return null;
+    }
+
+    public void SetItemKey(int _ItemKey)
+    {
+        if (inventoryViewer != null)
+        {
+            inventoryViewer.SetItemKey(_ItemKey);
+        }
+    }
+
+    public void UnSetItemKey()
+    {
+        if (inventoryViewer != null)
+        {
+            inventoryViewer.UnSetItemKey();
+        }
+    }
+
+    public void SetSlot(SMImage _Image)
+    {
+        if (inventoryViewer != null)
+        {
+            inventoryViewer.SetSlot(_Image);
+        }
+    }
+
+    public void UnSetSlot(SMImage _Image)
+    {
+        if (inventoryViewer != null)
+        {
+            inventoryViewer.UnSetSlot(_Image);
         }
     }
 
@@ -65,10 +102,6 @@ public class UIManager : MonoBehaviour
         if (inventoryViewer != null)
         {
             inventoryViewer.AddItem(Row, Col, _info.Key);
-        }
-        else
-        {
-            Debug.LogError("InventoryViewer is not assigned or found.");
         }
     }
 

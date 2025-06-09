@@ -3,7 +3,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class SMSlot : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
     ESMHandler handler;
 
@@ -27,26 +27,33 @@ public class SMSlot : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler,
     {
         currentcolor = color;
         color = Color.yellow;
-        DebugHelper.Log("SMImage OnMouseEnter", this);
     }
     public void OnMouseExit()
     {
         color = currentcolor;
-        DebugHelper.Log("SMImage OnMouseExit", this);
     }
+
+    private Vector2 currentScale;
+    public int itemKeyValue;
 
     public void OnMouseButtonOff()
     {
+        gameObject.transform.localScale = currentScale;
         isSelected = false;
         raycastTarget = true;
-        DebugHelper.Log("SMImage OnMouseButtonUp", this);
+        InventorySlot inventorySlot = UIManager.Instance.GetSlot();
+        if (null != inventorySlot)
+        {
+            Player.Instance.playerInventory.AddItem(inventorySlot.Row, inventorySlot.Column, itemKeyValue);
+        }
     }
 
     public void OnMouseButtonOn()
     {
+        currentScale = gameObject.transform.localScale;
+        gameObject.transform.localScale = currentScale * 0.3f;
         isSelected = true;
         raycastTarget = false;
-        DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -73,20 +80,20 @@ public class SMSlot : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler,
     {
         OnMouseEnter();
 
-        if (handler == ESMHandler.UnHandled)
-        {
-            SMHandlerEvent.TryDispatcherMouseEnter(eventData.position);
-        }
+        //if (handler == ESMHandler.UnHandled)
+        //{
+        //    SMHandlerEvent.TryDispatcherMouseEnter(eventData.position);
+        //}
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
         OnMouseExit();
 
-        if (handler == ESMHandler.UnHandled)
-        {
-            SMHandlerEvent.TryDispatcherMouseExit(eventData.position);
-        }
+        //if (handler == ESMHandler.UnHandled)
+        //{
+        //    SMHandlerEvent.TryDispatcherMouseExit(eventData.position);
+        //}
     }
 
 }
