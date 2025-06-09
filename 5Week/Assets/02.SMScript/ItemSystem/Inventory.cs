@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
+using static UnityEditor.PlayerSettings;
 
 public class Inventory
 {
@@ -33,6 +35,11 @@ public class Inventory
     {
         ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_item.Key);
 
+        if (dataScript == null)
+        {
+            return;
+        }
+
         foreach (KeyValuePair<(int, int), bool> slot in existItemSlots)
         {
             if (slot.Value == false)
@@ -55,6 +62,11 @@ public class Inventory
     {
         ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_item.Key);
 
+        if(dataScript == null)
+        {
+            return;
+        }
+
         if (false == existItemSlots[(Row, Col)])
         {
             if (SearchSlot((Row, Col), dataScript) == false)
@@ -68,23 +80,33 @@ public class Inventory
         }
     }
 
+    void SearchBoolSlot((int, int) _start, (int, int) _end)
+    {
+        for (int row = _start.Item1; row < _end.Item1 + 1; ++row)
+        {
+            for (int col = _start.Item2; col < _end.Item2 + 1; ++col)
+            {
+                existItemSlots[(row, col)] = true;
+            }
+        }
+    }
 
     bool SearchSlot((int,int) _slot, ItemDataScript _dataScript)
     {
         int Row = _dataScript.Row;
         int Col = _dataScript.Col;
 
-        int MaxRow = Row + _slot.Item2;
-        int MaxCol = Col + _slot.Item1;
+        int MaxRow = Row + _slot.Item1 - 1;
+        int MaxCol = Col + _slot.Item2 - 1;
 
         if (MaxRow > InventoryViewer.InventoryRowSize || MaxCol > InventoryViewer.InventoryRowSize)
         {
             return false;
         }
 
-        for (int row = _slot.Item2; row < Row; ++row)
+        for (int row = _slot.Item1; row < MaxRow + 1; ++row)
         {
-            for (int col = _slot.Item1; col < Col; ++col)
+            for (int col = _slot.Item2; col < MaxCol + 1; ++col)
             {
                 if (true == existItemSlots[(row, col)])
                 {
@@ -92,6 +114,9 @@ public class Inventory
                 }
             }
         }
+
+        SearchBoolSlot(_slot, (MaxRow, MaxCol));
+
         return true;
     }
 }

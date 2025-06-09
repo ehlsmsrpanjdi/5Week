@@ -24,6 +24,7 @@ public class ItemDictionary // ¿¢¼¿¾²±â ±ÍÂú¾Æ jsonµµ ±ÍÂú¾Æ
     {
         itemdictionary.Add(1, Resources.Load<ItemDataScript>("ItemData/Item_1"));
         itemdictionary.Add(2, Resources.Load<ItemDataScript>("ItemData/Item_2"));
+        itemdictionary.Add(3, Resources.Load<ItemDataScript>("ItemData/Item_3"));
     }
 
     public ItemDataScript GetItemData(int id)
@@ -38,14 +39,4 @@ public class ItemDictionary // ¿¢¼¿¾²±â ±ÍÂú¾Æ jsonµµ ±ÍÂú¾Æ
             return null;
         }
     }
-}
-
-[CreateAssetMenu(fileName = "NewItemData", menuName = "Inventory/ItemData")]
-public class ItemDataScript : ScriptableObject
-{
-    public int id;
-    public string name;
-    public int Row;
-    public int Col;
-    public GameObject UIObject;
 }

@@ -9,9 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: a37fd3f64bc67dc4fa74e356facd7c0c, type: 3}
   m_Name: Item_2
-  m_EditorClassIdentifier: Assembly-CSharp::ItemDataScript
-  id: 0
+  m_EditorClassIdentifier: 
+  id: 2
   name: 
-  UIObject: {fileID: 0}
+  Row: 1
+  Col: 3
+  UIObject: {fileID: 795289364470126297, guid: 26f5d3b79c6c8174c9086692be034b17, type: 3}
