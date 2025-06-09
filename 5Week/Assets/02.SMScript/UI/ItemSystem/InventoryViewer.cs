@@ -40,11 +40,11 @@ public class InventoryViewer : MonoBehaviour
         return itemSlots.Count;
     }
 
-    public void AddItem(int x, int y, int _ItemKey)
+    public void AddItem(int Row, int Col, int _ItemKey)
     {
         ItemDataScript data = ItemDictionary.Instance.GetItemData(_ItemKey);
         GameObject obj = Instantiate(data.UIObject, this.transform);
 
-        obj.transform.position = itemSlots[(x, y)].transform.position;
+        obj.transform.position = itemSlots[(Row, Col)].transform.position;
     }
 }

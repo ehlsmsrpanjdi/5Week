@@ -23,6 +23,7 @@ public class ItemDictionary // ¿¢¼¿¾²±â ±ÍÂú¾Æ jsonµµ ±ÍÂú¾Æ
     public void Init()
     {
         itemdictionary.Add(1, Resources.Load<ItemDataScript>("ItemData/Item_1"));
+        itemdictionary.Add(2, Resources.Load<ItemDataScript>("ItemData/Item_2"));
     }
 
     public ItemDataScript GetItemData(int id)
@@ -44,5 +45,7 @@ public class ItemDataScript : ScriptableObject
 {
     public int id;
     public string name;
+    public int Row;
+    public int Col;
     public GameObject UIObject;
 }

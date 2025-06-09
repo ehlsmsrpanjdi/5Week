@@ -12,8 +12,9 @@ public class DebugWindow : EditorWindow
         GetWindow<DebugWindow>("My Window Title");
     }
 
-    int valueA = 0;
-    int valueB = 0;
+    int Row = 0;
+    int Col = 0;
+    int itemKey = 0;
 
 
     private void OnGUI()
@@ -22,13 +23,20 @@ public class DebugWindow : EditorWindow
 
         GUILayout.Label("정수 값 입력", EditorStyles.boldLabel);
 
-        valueA = EditorGUILayout.IntField("Value A", valueA);
-        valueB = EditorGUILayout.IntField("Value B", valueB);
+        Row = EditorGUILayout.IntField("행", Row);
+        Col = EditorGUILayout.IntField("열", Col);
 
-        if (GUILayout.Button("값 출력"))
+        itemKey = EditorGUILayout.IntField("탬키", itemKey);
+
+        if (GUILayout.Button("테스트 아이템 얻기"))
         {
-            Debug.Log($"입력된 값: A = {valueA}, B = {valueB}");
-            Player.Instance.playerInventory.AddItem(valueA, valueB, new ItemInfo() { Key = 1 });
+            Debug.Log($"입력된 값: 행 = {Row}, 열 = {Col}");
+            Player.Instance.playerInventory.AddItem(Row, Col, new ItemInfo() { Key = 1 });
+        }
+
+        if (GUILayout.Button("원하는 아이템 얻기"))
+        {
+            Player.Instance.playerInventory.AddItem(Row, Col, new ItemInfo() { Key = itemKey });
         }
     }
 }
