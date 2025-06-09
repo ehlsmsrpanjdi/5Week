@@ -374,6 +374,7 @@
 "Assets/02.SMScript/UI/ItemSystem/InventorySlot.cs"
 "Assets/02.SMScript/UI/ItemSystem/InventoryViewer.cs"
 "Assets/02.SMScript/UI/ItemSystem/ItemSlot.cs"
+"Assets/02.SMScript/UI/SMSlotImage.cs"
 "Assets/02.SMScript/UI/UIManager.cs"
 -langversion:9.0
 
