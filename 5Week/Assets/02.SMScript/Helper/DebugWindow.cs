@@ -31,12 +31,12 @@ public class DebugWindow : EditorWindow
         if (GUILayout.Button("테스트 아이템 얻기"))
         {
             Debug.Log($"입력된 값: 행 = {Row}, 열 = {Col}");
-            Player.Instance.playerInventory.AddItem(Row, Col, new ItemInfo() { Key = 1 });
+            Player.Instance.playerInventory.AddItem(Row, Col, 1);
         }
 
         if (GUILayout.Button("원하는 아이템 얻기"))
         {
-            Player.Instance.playerInventory.AddItem(Row, Col, new ItemInfo() { Key = itemKey });
+            Player.Instance.playerInventory.AddItem(Row, Col, itemKey);
         }
     }
 }

@@ -97,11 +97,11 @@ public class UIManager : MonoBehaviour
         return inventoryViewer.GetInventorySlotCount();
     }
 
-    public void AddItemToInventory(int Row, int Col, ItemInfo _info)
+    public void AddItemToInventory(int Row, int Col, int _itemKeyCode)
     {
         if (inventoryViewer != null)
         {
-            inventoryViewer.AddItem(Row, Col, _info.Key);
+            inventoryViewer.AddItem(Row, Col, _itemKeyCode);
         }
     }
 

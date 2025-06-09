@@ -29,14 +29,5 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         interactionInput = playerInput.actions[InteractionActionName];
-        interactionInput.performed += AddItem;
     }
-
-    void AddItem(InputAction.CallbackContext _context)
-    {
-        ItemInfo itemInfo = new ItemInfo();
-        itemInfo.Key = 1;
-        player.playerInventory.AddItem(itemInfo);
-    }
-
 }

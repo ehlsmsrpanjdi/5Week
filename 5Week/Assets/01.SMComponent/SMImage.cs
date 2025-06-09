@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
@@ -15,23 +14,23 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
     {
         currentcolor = color;
         color = Color.yellow;
+        UIManager.Instance.SetSlot(this);
         //DebugHelper.Log("SMImage OnMouseEnter", this);
     }
     public void OnMouseExit()
     {
         color = currentcolor;
+        UIManager.Instance.UnSetSlot(this);
         //DebugHelper.Log("SMImage OnMouseExit", this);
     }
 
     public void OnMouseButtonOff()
     {
-        UIManager.Instance.UnSetSlot(this);
         //DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
     public void OnMouseButtonOn()
     {
-        UIManager.Instance.SetSlot(this);
         //DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 

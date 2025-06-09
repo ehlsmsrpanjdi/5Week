@@ -6,7 +6,7 @@ using static UnityEditor.PlayerSettings;
 
 public class Inventory
 {
-    Dictionary<(int, int), ItemInfo> itemSlots = new Dictionary<(int, int), ItemInfo>();
+    Dictionary<(int, int), int> itemSlots = new Dictionary<(int, int), int>();
     Dictionary<(int, int), bool> existItemSlots = new Dictionary<(int, int), bool>();
 
     bool isInit = false;
@@ -31,9 +31,9 @@ public class Inventory
         }
     }
 
-    public void AddItem(ItemInfo _item)
+    public void AddItem(int _itemKeyCode)
     {
-        ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_item.Key);
+        ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_itemKeyCode);
 
         if (dataScript == null)
         {
@@ -50,34 +50,36 @@ public class Inventory
                 }
 
                 existItemSlots[slot.Key] = true;
-                itemSlots[slot.Key] = _item;
-                UIManager.Instance.AddItemToInventory(slot.Key.Item1, slot.Key.Item2, _item);
+                itemSlots[slot.Key] = _itemKeyCode;
+                UIManager.Instance.AddItemToInventory(slot.Key.Item1, slot.Key.Item2, _itemKeyCode);
                 return;
             }
         }
     }
 
 
-    public void AddItem(int Row, int Col, ItemInfo _item)
+    public bool AddItem(int Row, int Col, int _itemKeyCode)
     {
-        ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_item.Key);
+        ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_itemKeyCode);
 
         if(dataScript == null)
         {
-            return;
+            return false;
         }
 
         if (false == existItemSlots[(Row, Col)])
         {
             if (SearchSlot((Row, Col), dataScript) == false)
             {
-                return;
+                return false;
             }
 
-            itemSlots[(Row, Col)] = _item;
+            itemSlots[(Row, Col)] = _itemKeyCode;
             existItemSlots[(Row, Col)] = true;
-            UIManager.Instance.AddItemToInventory(Row, Col, _item);
+            UIManager.Instance.AddItemToInventory(Row, Col, _itemKeyCode);
+            return true;
         }
+        return false;
     }
 
     void SearchBoolSlot((int, int) _start, (int, int) _end)
