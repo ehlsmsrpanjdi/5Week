@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -24,11 +25,13 @@ public class Player : MonoBehaviour
         if (playerInventory == null)
         {
             playerInventory = new Inventory();
+            playerStatusInventory = new StatusInventory();
         }
     }
 
     private void Start()
     {
         playerInventory.Init();
+        playerStatusInventory.Init();
     }
 }

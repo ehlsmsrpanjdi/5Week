@@ -8,10 +8,6 @@ public class InventoryViewer : MonoBehaviour
 {
     Dictionary<(int, int), InventorySlot> itemSlots = new Dictionary<(int, int), InventorySlot>();
 
-    InventorySlot selectedSlot;
-    int itemKey;
-
-
     [SerializeField] GridLayoutGroup gridLayoutGroup;
 
     public const int InventoryRowSize = 6;
@@ -39,37 +35,6 @@ public class InventoryViewer : MonoBehaviour
         Destroy(gridLayoutGroup);
     }
 
-    public InventorySlot GetSlot()
-    {
-        return selectedSlot;
-    }
-
-    public void SetItemKey(int _ItemKey)
-    {
-        itemKey = _ItemKey;
-    }
-
-    public void UnSetItemKey()
-    {
-        itemKey = -1;
-    }
-
-    public void SetSlot(SMImage _Image)
-    {
-        selectedSlot = _Image.GetComponent<InventorySlot>();
-    }
-
-    public void UnSetSlot(SMImage _Image)
-    {
-        if(selectedSlot == null)
-        {
-            selectedSlot = _Image.GetComponent<InventorySlot>();
-        }
-        else if(selectedSlot == _Image.GetComponent<InventorySlot>())
-        {
-            selectedSlot = null;
-        }
-    }
     public int GetInventorySlotCount()
     {
         return itemSlots.Count;
@@ -80,10 +45,9 @@ public class InventoryViewer : MonoBehaviour
         ItemDataScript data = ItemDictionary.Instance.GetItemData(_ItemKey);
         GameObject obj = Instantiate(data.UIObject, this.transform);
         obj.transform.position = itemSlots[(Row, Col)].transform.position;
-        SMSlotImage slot = obj.GetComponent<SMSlotImage>();
-        slot.itemKeyValue = _ItemKey;
-        slot.Row = Row;
-        slot.Col = Col;
-        
+        ItemSlot itemSlot = obj.GetComponent<ItemSlot>();
+        itemSlot.Position = (Row, Col);
+        itemSlot.ItemKey = _ItemKey;
+        itemSlot.slotType = ESlotType.Inven;
     }
 }

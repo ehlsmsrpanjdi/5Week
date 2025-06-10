@@ -115,7 +115,7 @@ public class Inventory
         int MaxRow = Row + _slot.Item1;
         int MaxCol = Col + _slot.Item2;
 
-        if (MaxRow - 1> InventoryViewer.InventoryRowSize || MaxCol - 1 > InventoryViewer.InventoryRowSize)
+        if (MaxRow - 1>= InventoryViewer.InventoryRowSize || MaxCol - 1 >= InventoryViewer.InventoryRowSize)
         {
             return false;
         }

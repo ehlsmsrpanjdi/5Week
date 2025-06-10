@@ -2,17 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSlot : MonoBehaviour
+public enum ESlotType
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    None,
+    Inven,
+    Status,
+}
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+public class ItemSlot : Slot
+{
+    public (int,int) Position = (-1,-1);
+    public int ItemKey = -1;
+    public ESlotType slotType = ESlotType.None;
 }

@@ -23,14 +23,6 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    SMImage selectedImage;
-
-    public void SelectImage(SMImage _image)
-    {
-        selectedImage = _image;
-    }
-
-
     private void Awake()
     {
         if (instance == null)
@@ -44,13 +36,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    [SerializeField] InventoryViewer inventoryViewer;
 
+    [SerializeField] InventoryViewer inventoryViewer;
+    [SerializeField] StatusViewer statusViewer;
     private void Reset()
     {
         inventoryViewer = FindObjectOfType<InventoryViewer>();
+        statusViewer = FindObjectOfType<StatusViewer>();
     }
 
+    #region Inventory
 
     public void InventoryOnOff()
     {
@@ -60,44 +55,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public InventorySlot GetSlot()
+    public Slot GetSlot()
     {
-        if (inventoryViewer != null)
-        {
-            return inventoryViewer.GetSlot();
-        }
-        return null;
-    }
-
-    public void SetItemKey(int _ItemKey)
-    {
-        if (inventoryViewer != null)
-        {
-            inventoryViewer.SetItemKey(_ItemKey);
-        }
-    }
-
-    public void UnSetItemKey()
-    {
-        if (inventoryViewer != null)
-        {
-            inventoryViewer.UnSetItemKey();
-        }
+        return Slot.GetSlot();
     }
 
     public void SetSlot(SMImage _Image)
     {
-        if (inventoryViewer != null)
+        Slot slot = _Image.GetComponent<Slot>();
+        if (slot == null)
         {
-            inventoryViewer.SetSlot(_Image);
+            return;
         }
+        Slot.SetSlot(slot);
     }
 
     public void UnSetSlot(SMImage _Image)
     {
-        if (inventoryViewer != null)
+        Slot slot = _Image.GetComponent<Slot>();
+        if (slot == GetSlot())
         {
-            inventoryViewer.UnSetSlot(_Image);
+            slot = null;
         }
     }
 
@@ -114,4 +92,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region StatusInventory
+
+    public int GetStatusInventoryCount()
+    {
+        return statusViewer.GetStatusInventoryCount();
+    }
+
+    public void StatusOnOff()
+    {
+        if (statusViewer != null)
+        {
+            statusViewer.gameObject.SetActive(!statusViewer.gameObject.activeSelf);
+        }
+    }
+
+    public void AddItemToStatusInventory(int _Index, int _ItemKeyCode)
+    {
+        statusViewer.AddItem(_Index, _ItemKeyCode);
+    }
+
+    #endregion
 }

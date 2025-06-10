@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : Slot
 {
     public int Row;
     public int Column;
 
     bool isInit = false;
+
+    public override bool SlotFunction(int Key)
+    {
+        return Player.Instance.playerInventory.AddItem(Row, Column, Key);
+    }
+
     public void Init(int _gridWidth)
     {
         if ((true == isInit))

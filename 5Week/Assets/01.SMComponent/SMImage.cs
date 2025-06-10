@@ -4,37 +4,39 @@ using UnityEngine.UI;
 
 public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
 {
-    ESMHandler handler;
+    protected ESMHandler handler;
 
     ESMHandler IHandlerUI.Handler => handler;
 
-    private Color currentcolor;
+    protected Color currentcolor;
 
-    public void OnMouseEnter()
+
+    public virtual void OnMouseEnter()
     {
         currentcolor = color;
         color = Color.yellow;
         UIManager.Instance.SetSlot(this);
         //DebugHelper.Log("SMImage OnMouseEnter", this);
     }
-    public void OnMouseExit()
+
+    public virtual void OnMouseExit()
     {
         color = currentcolor;
         UIManager.Instance.UnSetSlot(this);
         //DebugHelper.Log("SMImage OnMouseExit", this);
     }
 
-    public void OnMouseButtonOff()
+    public virtual void OnMouseButtonOff()
     {
         DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
-    public void OnMouseButtonOn()
+    public virtual void OnMouseButtonOn()
     {
         DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
-    public void OnPointerUp(PointerEventData eventData)
+    public virtual void OnPointerUp(PointerEventData eventData)
     {
         OnMouseButtonOff();
 
@@ -44,7 +46,7 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
         }
     }
 
-    public void OnPointerDown(PointerEventData eventData)
+    public virtual void OnPointerDown(PointerEventData eventData)
     {
         OnMouseButtonOn();
 
@@ -54,7 +56,7 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
         }
     }
 
-    public void OnPointerEnter(PointerEventData eventData)
+    public virtual void OnPointerEnter(PointerEventData eventData)
     {
         OnMouseEnter();
 
@@ -64,7 +66,7 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
         //}
     }
 
-    public void OnPointerExit(PointerEventData eventData)
+    public virtual void OnPointerExit(PointerEventData eventData)
     {
         OnMouseExit();
 

@@ -1,16 +1,15 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
-public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler, IPointerEnterHandler, IPointerExitHandler
+public class SMSlotImage : SMImage
 {
-    ESMHandler handler;
-
-    ESMHandler IHandlerUI.Handler => handler;
-
     bool isSelected = false;
+    ItemSlot itemSlot;
 
+    protected override void Awake()
+    {
+        itemSlot = GetComponent<ItemSlot>();  // 깜빡하고 리셋을 미리 안함 ㄲㅂ
+    }
     private void Update()
     {
         if (true == isSelected)
@@ -21,95 +20,67 @@ public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHan
         }
     }
 
-    private Color currentcolor;
 
-    public void OnMouseEnter()
+    public override void OnMouseEnter()
     {
         currentcolor = color;
         color = Color.yellow;
     }
-    public void OnMouseExit()
+    public override void OnMouseExit()
     {
         color = currentcolor;
     }
 
     private Vector2 currentScale;
-    public int itemKeyValue;
-    public int Row;
-    public int Col;
 
-    public void OnMouseButtonOff()
+    public override void OnMouseButtonOff()
     {
         gameObject.transform.localScale = currentScale;
         isSelected = false;
         raycastTarget = true;
-        InventorySlot inventorySlot = UIManager.Instance.GetSlot();
-        if (null != inventorySlot)
+        Slot slot = UIManager.Instance.GetSlot();
+        if (true == slot.SlotFunction(itemSlot.ItemKey))
         {
-            if(false == Player.Instance.playerInventory.AddItem(inventorySlot.Row, inventorySlot.Column, itemKeyValue))
-            {
-                Destroy(this.gameObject);
-                Player.Instance.playerInventory.AddItem(Row, Col, itemKeyValue);
-            }
-            else
-            {
-                Destroy(this.gameObject);
-            }
+            Destroy(this.gameObject);
         }
         else
         {
+            switch (itemSlot.slotType)
+            {
+                case ESlotType.None:
+                    break;
+                case ESlotType.Inven:
+                    Player.Instance.playerInventory.AddItem(itemSlot.Position.Item1, itemSlot.Position.Item2, itemSlot.ItemKey);
+                    break;
+                case ESlotType.Status:
+                    Player.Instance.playerStatusInventory.AddItem(itemSlot.Position.Item2, itemSlot.ItemKey);
+                    break;
+                default:
+                    break;
+            }
             Destroy(this.gameObject);
-            Player.Instance.playerInventory.AddItem(Row, Col, itemKeyValue);
         }
     }
 
-    public void OnMouseButtonOn()
+    public override void OnMouseButtonOn()
     {
         currentScale = gameObject.transform.localScale;
         gameObject.transform.localScale = currentScale * 0.3f;
         isSelected = true;
         raycastTarget = false;
-        Player.Instance.playerInventory.PopItem(Row, Col, itemKeyValue);
-    }
 
-    public void OnPointerUp(PointerEventData eventData)
-    {
-        OnMouseButtonOff();
-
-        if (handler == ESMHandler.UnHandled)
+        switch (itemSlot.slotType)
         {
-            SMHandlerEvent.TryDispatcherMouseOff(eventData.position);
+            case ESlotType.None:
+                break;
+            case ESlotType.Inven:
+                Player.Instance.playerInventory.PopItem(itemSlot.Position.Item1, itemSlot.Position.Item2, itemSlot.ItemKey);
+                break;
+            case ESlotType.Status:
+                Player.Instance.playerStatusInventory.PopItem(itemSlot.Position.Item2);
+                break;
+            default:
+                break;
         }
     }
-
-    public void OnPointerDown(PointerEventData eventData)
-    {
-        OnMouseButtonOn();
-
-        if (handler == ESMHandler.UnHandled)
-        {
-            SMHandlerEvent.TryDispatcherMouseOn(eventData.position);
-        }
-    }
-
-    public void OnPointerEnter(PointerEventData eventData)
-    {
-        OnMouseEnter();
-
-        //if (handler == ESMHandler.UnHandled)
-        //{
-        //    SMHandlerEvent.TryDispatcherMouseEnter(eventData.position);
-        //}
-    }
-
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        OnMouseExit();
-
-        //if (handler == ESMHandler.UnHandled)
-        //{
-        //    SMHandlerEvent.TryDispatcherMouseExit(eventData.position);
-        //}
-    }
-
 }

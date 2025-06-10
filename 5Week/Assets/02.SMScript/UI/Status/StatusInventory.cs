@@ -1,27 +1,44 @@
-using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 public class StatusInventory
 {
-    public int Item_1;
-    public int Item_2;
-    public int Item_3;
+    public List<int> Items { get; private set; } = new List<int>();
 
-    public void GetItem(int _Index, int _ItemKey)
+    bool isInit = false;
+
+    public void Init()
     {
-        switch (_Index)
+        if (isInit == true)
         {
-            case 0:
-                Item_1 = _ItemKey;
-                break;
-            case 1:
-                Item_2 = _ItemKey;
-                break;
-            case 2:
-                Item_3 = _ItemKey;
-                break;
+            return;
         }
+        isInit = true;
+
+        int StatusInventoryCount = UIManager.Instance.GetStatusInventoryCount();
+        for (int i = 0; i < StatusInventoryCount; i++)
+        {
+            Items.Add(-1);
+        }
+    }
+
+    public bool AddItem(int _Index, int _ItemKey)
+    {
+        if (Items[_Index] != -1)
+        {
+            return false; // 이미 아이템이 존재하는 경우
+        }
+        if (Items.Count > _Index)
+        {
+            Items[_Index] = _ItemKey;
+            UIManager.Instance.AddItemToStatusInventory(_Index, _ItemKey);
+            return true;
+        }
+        return false;
+    }
+
+    public void PopItem(int _Index)
+    {
+        Items[_Index] = -1;
     }
 
 }
