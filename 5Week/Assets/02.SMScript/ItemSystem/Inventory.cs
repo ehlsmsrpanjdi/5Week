@@ -44,7 +44,7 @@ public class Inventory
         {
             if (slot.Value == false)
             {
-                if(SearchSlot(slot.Key, dataScript) == false)
+                if (SearchSlot(slot.Key, dataScript) == false)
                 {
                     continue;
                 }
@@ -62,7 +62,7 @@ public class Inventory
     {
         ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_itemKeyCode);
 
-        if(dataScript == null)
+        if (dataScript == null)
         {
             return false;
         }
@@ -82,33 +82,47 @@ public class Inventory
         return false;
     }
 
-    void SearchBoolSlot((int, int) _start, (int, int) _end)
+    public void PopItem(int Row, int Col, int _itemKeyCode)
     {
-        for (int row = _start.Item1; row < _end.Item1 + 1; ++row)
+        ItemDataScript dataScript = ItemDictionary.Instance.GetItemData(_itemKeyCode);
+
+        if (dataScript == null)
         {
-            for (int col = _start.Item2; col < _end.Item2 + 1; ++col)
+            return;
+        }
+        (int,int) end = (Row + dataScript.Row, Col + dataScript.Col);
+
+        SearchBoolSlot((Row, Col), end, false);
+    }
+
+
+    void SearchBoolSlot((int, int) _start, (int, int) _end, bool _check)
+    {
+        for (int row = _start.Item1; row < _end.Item1; ++row)
+        {
+            for (int col = _start.Item2; col < _end.Item2; ++col)
             {
-                existItemSlots[(row, col)] = true;
+                existItemSlots[(row, col)] = _check;
             }
         }
     }
 
-    bool SearchSlot((int,int) _slot, ItemDataScript _dataScript)
+    bool SearchSlot((int, int) _slot, ItemDataScript _dataScript)
     {
         int Row = _dataScript.Row;
         int Col = _dataScript.Col;
 
-        int MaxRow = Row + _slot.Item1 - 1;
-        int MaxCol = Col + _slot.Item2 - 1;
+        int MaxRow = Row + _slot.Item1;
+        int MaxCol = Col + _slot.Item2;
 
-        if (MaxRow > InventoryViewer.InventoryRowSize || MaxCol > InventoryViewer.InventoryRowSize)
+        if (MaxRow - 1> InventoryViewer.InventoryRowSize || MaxCol - 1 > InventoryViewer.InventoryRowSize)
         {
             return false;
         }
 
-        for (int row = _slot.Item1; row < MaxRow + 1; ++row)
+        for (int row = _slot.Item1; row < MaxRow; ++row)
         {
-            for (int col = _slot.Item2; col < MaxCol + 1; ++col)
+            for (int col = _slot.Item2; col < MaxCol; ++col)
             {
                 if (true == existItemSlots[(row, col)])
                 {
@@ -117,7 +131,7 @@ public class Inventory
             }
         }
 
-        SearchBoolSlot(_slot, (MaxRow, MaxCol));
+        SearchBoolSlot(_slot, (MaxRow, MaxCol), true);
 
         return true;
     }

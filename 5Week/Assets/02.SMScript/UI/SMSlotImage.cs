@@ -35,7 +35,8 @@ public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHan
 
     private Vector2 currentScale;
     public int itemKeyValue;
-    private Vector2 prevPosition;
+    public int Row;
+    public int Col;
 
     public void OnMouseButtonOff()
     {
@@ -47,7 +48,8 @@ public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHan
         {
             if(false == Player.Instance.playerInventory.AddItem(inventorySlot.Row, inventorySlot.Column, itemKeyValue))
             {
-                gameObject.transform.position = prevPosition;
+                Destroy(this.gameObject);
+                Player.Instance.playerInventory.AddItem(Row, Col, itemKeyValue);
             }
             else
             {
@@ -56,7 +58,8 @@ public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHan
         }
         else
         {
-            gameObject.transform.position = prevPosition;
+            Destroy(this.gameObject);
+            Player.Instance.playerInventory.AddItem(Row, Col, itemKeyValue);
         }
     }
 
@@ -66,7 +69,7 @@ public class SMSlotImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHan
         gameObject.transform.localScale = currentScale * 0.3f;
         isSelected = true;
         raycastTarget = false;
-        prevPosition = gameObject.transform.position;
+        Player.Instance.playerInventory.PopItem(Row, Col, itemKeyValue);
     }
 
     public void OnPointerUp(PointerEventData eventData)

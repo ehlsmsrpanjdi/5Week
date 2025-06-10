@@ -26,12 +26,12 @@ public class SMImage : Image, IHandlerUI, IPointerUpHandler, IPointerDownHandler
 
     public void OnMouseButtonOff()
     {
-        //DebugHelper.Log("SMImage OnMouseButtonUp", this);
+        DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
     public void OnMouseButtonOn()
     {
-        //DebugHelper.Log("SMImage OnMouseButtonUp", this);
+        DebugHelper.Log("SMImage OnMouseButtonUp", this);
     }
 
     public void OnPointerUp(PointerEventData eventData)

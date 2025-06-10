@@ -51,6 +51,15 @@ public class UIManager : MonoBehaviour
         inventoryViewer = FindObjectOfType<InventoryViewer>();
     }
 
+
+    public void InventoryOnOff()
+    {
+        if (inventoryViewer != null)
+        {
+            inventoryViewer.gameObject.SetActive(!inventoryViewer.gameObject.activeSelf);
+        }
+    }
+
     public InventorySlot GetSlot()
     {
         if (inventoryViewer != null)

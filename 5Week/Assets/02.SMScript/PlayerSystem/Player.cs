@@ -1,10 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
     public Inventory playerInventory;
+    public StatusInventory playerStatusInventory;
+    public Status status;
 
     static Player instance;
     public static Player Instance

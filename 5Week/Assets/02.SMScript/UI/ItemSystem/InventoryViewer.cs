@@ -79,7 +79,11 @@ public class InventoryViewer : MonoBehaviour
     {
         ItemDataScript data = ItemDictionary.Instance.GetItemData(_ItemKey);
         GameObject obj = Instantiate(data.UIObject, this.transform);
-        obj.GetComponent<SMSlotImage>().itemKeyValue = _ItemKey;
         obj.transform.position = itemSlots[(Row, Col)].transform.position;
+        SMSlotImage slot = obj.GetComponent<SMSlotImage>();
+        slot.itemKeyValue = _ItemKey;
+        slot.Row = Row;
+        slot.Col = Col;
+        
     }
 }
