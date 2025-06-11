@@ -9,5 +9,7 @@ public class ItemDataScript : ScriptableObject
     public string name;
     public int Row;
     public int Col;
+    public int Hp;
+    public int Mp;
     public GameObject UIObject;
 }

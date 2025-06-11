@@ -16,4 +16,6 @@ MonoBehaviour:
   name: "\uB760\uB760\uB530\uB530"
   Row: 2
   Col: 2
+  Hp: 2
+  Mp: 8
   UIObject: {fileID: 9154890694526304127, guid: 2510524f394f9d8489a7e72dd1257fee, type: 3}

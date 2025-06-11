@@ -4,6 +4,6 @@ using UnityEngine;
 
 public class Status
 {
-    public int hp;
-    public int mp;
+    public int Hp = 10;
+    public int Mp = 5;
 }

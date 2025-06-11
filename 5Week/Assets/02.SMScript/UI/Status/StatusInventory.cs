@@ -29,8 +29,12 @@ public class StatusInventory
         }
         if (Items.Count > _Index)
         {
+            ItemDataScript data = ItemDictionary.Instance.GetItemData(_ItemKey);
+            Player.Instance.status.Hp += data.Hp;
+            Player.Instance.status.Mp += data.Mp;
             Items[_Index] = _ItemKey;
             UIManager.Instance.AddItemToStatusInventory(_Index, _ItemKey);
+            UIManager.Instance.StatusChange();
             return true;
         }
         return false;
@@ -38,7 +42,12 @@ public class StatusInventory
 
     public void PopItem(int _Index)
     {
+        int _ItemKey = Items[_Index];
+        ItemDataScript data = ItemDictionary.Instance.GetItemData(_ItemKey);
+        Player.Instance.status.Hp -= data.Hp;
+        Player.Instance.status.Mp -= data.Mp;
         Items[_Index] = -1;
+        UIManager.Instance.StatusChange();
     }
 
 }

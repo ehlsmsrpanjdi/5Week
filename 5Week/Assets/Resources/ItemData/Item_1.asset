@@ -16,4 +16,6 @@ MonoBehaviour:
   name: 
   Row: 1
   Col: 1
+  Hp: 2
+  Mp: 2
   UIObject: {fileID: 428908375449253265, guid: 8514176efcf452144b65026d22def57e, type: 3}

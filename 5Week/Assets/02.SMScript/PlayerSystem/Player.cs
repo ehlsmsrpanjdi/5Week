@@ -26,6 +26,7 @@ public class Player : MonoBehaviour
         {
             playerInventory = new Inventory();
             playerStatusInventory = new StatusInventory();
+            status = new Status();
         }
     }
 

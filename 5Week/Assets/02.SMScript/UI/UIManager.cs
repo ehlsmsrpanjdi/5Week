@@ -114,5 +114,10 @@ public class UIManager : MonoBehaviour
         statusViewer.AddItem(_Index, _ItemKeyCode);
     }
 
+    public void StatusChange()
+    {
+        statusViewer.OnStatusChange.Invoke();
+    }
+
     #endregion
 }

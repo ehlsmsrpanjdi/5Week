@@ -1,10 +1,16 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class StatusViewer : MonoBehaviour
 {
     [SerializeField] List<SMEquipImage> equipImages;
+    [SerializeField] TextMeshProUGUI THP;
+    [SerializeField] TextMeshProUGUI TMP;
+
+    public Action OnStatusChange;
 
     private void Reset()
     {
@@ -16,6 +22,23 @@ public class StatusViewer : MonoBehaviour
             slot.Init(index);
             equipImages.Add(equipImage);
         }
+
+        THP = transform.Find("Text_HP").GetComponent<TextMeshProUGUI>();
+        TMP = transform.Find("Text_MP").GetComponent<TextMeshProUGUI>();
+    }
+
+    void Awake()
+    {
+        OnStatusChange += () =>
+                {
+                    THP.text = Player.Instance.status.Hp.ToString();
+                    TMP.text = Player.Instance.status.Mp.ToString();
+                };
+    }
+
+    private void Start()
+    {
+        OnStatusChange.Invoke();
     }
 
     public void AddItem(int _Index, int _ItemKey)
